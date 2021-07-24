@@ -1,0 +1,11 @@
+{
+  "name": "i-ching",
+  "version": "1.0.0",
+  "description": "A program for consulting the I-Ching",
+  "main": "divination.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joseph Kranak",
+  "license": "ISC"
+}
