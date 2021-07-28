@@ -58,20 +58,23 @@ function hexagram (method) {
   if (divination.includes(6) || divination.includes(9)) {
     let divination1 = '';
     let divinationChange = '';
+    let lines = [];
     for (let i = 0; i < 6; i++) {
       if (divination[i] === 6) {
         divination1 += '8';
         divinationChange += '7';
+        lines.push(6 - i);
       }
       else if (divination[i] === 9) {
         divination1 += '7';
         divinationChange += '8';
+        lines.push(6 - i);
       } else {
         divination1 += divination[i].toString();
         divinationChange += divination[i].toString();
       }
     }
-    return [hexNumber[divination1], hexNumber[divinationChange]];
+    return [hexNumber[divination1], hexNumber[divinationChange], ...lines];
   }
   return [hexNumber[divination.join('')]];
 }
@@ -160,22 +163,3 @@ let hexNumber = {
 //whereas with the yarrow method, yin lines are changing only 12.5% of the time.
 //With the coin method, yang (unbroken) lines are also changing 25% of the time;
 //whereas with the yarrow method, yang lines are changing 37.5% of the time.
-
-
-function yarrowStalk2 () {
-  const remainders = num => num % 4 === 0 ? 4 : num % 4;
-
-  let results = [];
-  for (let i = 0; i < 6; i++) {
-    let line = 0;
-    let remain = 49;
-    for (let i = 0; i < 3; i++) {
-      let left = 1 + Math.floor(Math.random() * (remain - 1));
-      let sum = 1 + remainders(left) + remainders(remain - 1 - left);
-      line += sum === 4 || sum === 5 ? 3 : 2;
-      remain -= sum;
-    }
-    results.push(line);
-  }
-  return results;
-}
