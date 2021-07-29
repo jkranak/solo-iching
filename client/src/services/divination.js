@@ -32,8 +32,8 @@ function coinMethod () {
 
 function hexagram (method) {
   let divination = [];
-  if (method = 'yarrow') divination = yarrowStalk();
-  else if (method = 'coin') divination = coinMethod();
+  if (method === 'yarrow') divination = yarrowStalk();
+  else if (method === 'coin') divination = coinMethod();
   if (divination.includes(6) || divination.includes(9)) {
     let divination1 = '';
     let divinationChange = '';

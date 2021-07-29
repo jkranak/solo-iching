@@ -1,0 +1,50 @@
+{
+  "1": {
+    "trigram": "&#x2630;",
+    "chinese": "&#x4E7E;",
+    "pinyin": "qián",
+    "english": "heaven, sky"
+  },
+  "2": {
+    "trigram": "&#x2631;",
+    "chinese": "&#x514c;",
+    "pinyin": "duì",
+    "english": "lake, marsh"
+  },
+  "3": {
+    "trigram": "&#x2632;",
+    "chinese": "&#x96e2;",
+    "pinyin": "lí",
+    "english": "fire"
+  },
+  "4": {
+    "trigram": "&#x2633;",
+    "chinese": "&#x9707;",
+    "pinyin": "zhèn",
+    "english": "thunder"
+  },
+  "5": {
+    "trigram": "&#x2634;",
+    "chinese": "&#x5dfd;",
+    "pinyin": "xùn",
+    "english": "wind"
+  },
+  "6": {
+    "trigram": "&#x2635;",
+    "chinese": "&#x574e;",
+    "pinyin": "kǎn",
+    "english": "water"
+  },
+  "7": {
+    "trigram": "&#x2636;",
+    "chinese": "&#x826e;",
+    "pinyin": "gèn",
+    "english": "mountain"
+  },
+  "8": {
+    "trigram": "&#x2636;",
+    "chinese": "&#x5764;",
+    "pinyin": "kūn",
+    "english": "earth"
+  }
+}
