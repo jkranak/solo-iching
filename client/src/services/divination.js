@@ -55,7 +55,7 @@ function hexagram (method) {
     }
     return [divination.reverse(), [hexNumber[divination1], hexNumber[divinationChange]], lines];
   }
-  return [divination.reverse(), hexNumber[divination.join('')]];
+  return [divination.reverse(), [hexNumber[divination.join('')]]];
 }
 
 export default hexagram;
