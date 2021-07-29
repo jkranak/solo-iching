@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import Result from './result';
-import divination from '../services/divination';
+import Result from '../result/result';
+import divination from '../../services/divination';
+import './question.css';
 
 function Question() {
   const [question, setQuestion] = useState('');

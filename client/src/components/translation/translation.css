@@ -1,0 +1,10 @@
+.comments {
+  text-align: left;
+  text-indent: 2em;
+}
+
+#tbuttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

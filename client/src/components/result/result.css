@@ -14,7 +14,7 @@ li {
   display: flex;
   flex-direction: column;
   background-color: rgba(165, 130, 41, 0.2);
-  width: 50px;
+  width: 20%;
 }
 
 #linenum p {
@@ -24,7 +24,7 @@ li {
 
 #linenums {
   background-color: rgba(165, 130, 41, 0.2);
-  width: 50px;
+  width: 20%;
   font-family: cursive;
   font-size: large;
 }
@@ -32,9 +32,28 @@ li {
 #hexdisplay {
   display: flex;
   flex-direction: column;
-  padding-top: 0;
+  margin-left: 35%;
+  width: 20vw;
 }
 
 #hexagram {
   width: 100%;
+}
+
+#results {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#hexinfo {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+#changing {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
 }
