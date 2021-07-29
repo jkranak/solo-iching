@@ -11,25 +11,41 @@ function Translation({result}) {
     setTranslation(event.target.id);
   }
 
-  console.log(result)
-
   return (
-    <div>
+    <div id="translation">
       {translation === 'legge' ? 
       <div>{legge[result[1][0]].main.map((el, index) => (
-          <li key={index}>{el}</li>
+          <p key={index}>{el}</p>
         ))}
+        {result[2].length ? <p>Lines</p> : <></>}
+      <div>{result[2].map((el) => (
+        <p key={el}>{el}: {legge[result[1][0]][el].map((line, index) => (
+          <p>{line}</p>
+        ))}</p>
+      ))}</div>
       </div>: translation === 'richter' ? 
       <div>{richter[result[1][0]].main.map((el, index) => (
-        <li key={index}>{el}</li>
-      ))}</div> : 
-      <><p>judgment</p>
+        <p key={index}>{el}</p>
+      ))}
+        {result[2].length ? <p>Lines</p> : <></>}
+        <div>{result[2].map((el) => (
+        <p key={el}>{el}: {richter[result[1][0]][el].map((line, index) => (
+          <p>{line}</p>
+        ))}</p>
+      ))}</div></div> : 
+      <><h2>Judgment</h2>
       <div>{wilhelm[result[1][0]].judgment.map((el, index) => (
-        <li key={index}>{el}</li>
+        <p key={index}>{el}</p>
       ))}</div>
-      <p>image</p>
+      <h2>Image</h2>
       <div>{wilhelm[result[1][0]].image.map((el, index) => (
-        <li key={index}>{el}</li>
+        <p key={index}>{el}</p>
+      ))}</div>
+            {result[2].length ? <h2>Lines</h2> : <></>}
+      <div>{result[2].map((el) => (
+        <p key={el}>{el}: {wilhelm[result[1][0]][el].map((line, index) => (
+          <p>{line}</p>
+        ))}</p>
       ))}</div></>}
       <div>
         {translation !== 'legge' ? <button id="legge" onClick={handleClick}>James Legge</button> : <></>}

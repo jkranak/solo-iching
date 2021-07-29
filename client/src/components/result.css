@@ -19,12 +19,14 @@ li {
 
 #linenum p {
   font-size: small;
-  text-align: left;
+  text-align: center;
 }
 
 #linenums {
   background-color: rgba(165, 130, 41, 0.2);
   width: 50px;
+  font-family: cursive;
+  font-size: large;
 }
 
 #hexdisplay {
