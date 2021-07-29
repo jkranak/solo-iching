@@ -42,20 +42,20 @@ function hexagram (method) {
       if (divination[i] === 6) {
         divination1 += '8';
         divinationChange += '7';
-        lines.push(6 - i);
+        lines.push(i + 1);
       }
       else if (divination[i] === 9) {
         divination1 += '7';
         divinationChange += '8';
-        lines.push(6 - i);
+        lines.push(i + 1);
       } else {
         divination1 += divination[i].toString();
         divinationChange += divination[i].toString();
       }
     }
-    return [divination.reverse(), [hexNumber[divination1], hexNumber[divinationChange]], lines];
+    return [divination.reverse(), [hexNumber[divination1], hexNumber[divinationChange]], lines, method];
   }
-  return [divination.reverse(), [hexNumber[divination.join('')]]];
+  return [divination.reverse(), [hexNumber[divination.join('')]], [], method];
 }
 
 export default hexagram;

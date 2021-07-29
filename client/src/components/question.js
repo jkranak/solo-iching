@@ -12,16 +12,9 @@ function Question() {
     setQuestion(event.target.value);
   };
 
-  function yarrowSubmit (event) {
+  function handleSubmit (event) {
     event.preventDefault();
-    const divResult = divination('yarrow');
-    setResult(divResult);
-    setIsAsked(true);
-  }
-
-  function coinSubmit (event) {
-    event.preventDefault();
-    const divResult = divination('coin');
+    const divResult = divination(event.target.id);
     setResult(divResult);
     setIsAsked(true);
   }
@@ -34,8 +27,8 @@ function Question() {
       <form>
         <input type="text" name="question" onChange={handleChange} placeholder="Enter your question..." />
         <div>
-          <button onClick={yarrowSubmit}>Yarrow-Stalk Method</button>
-          <button onClick={coinSubmit}>Coin Method</button>
+          <button id="yarrow" onClick={handleSubmit}>Yarrow-Stalk Method</button>
+          <button id="coin" onClick={handleSubmit}>Coin Method</button>
         </div>
       </form>
       </>}
