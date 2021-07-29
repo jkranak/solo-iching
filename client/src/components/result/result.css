@@ -57,3 +57,21 @@ li {
   flex-direction: column;
   margin: 15px;
 }
+
+@media only screen and (max-width: 800px) {
+  #results {
+    width: 100vw;
+  }
+  #hexdisplay {
+    width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 800px) {
+  #results {
+    width: 80vw;
+  }
+  #hexdisplay {
+    width: 35vw;
+  }
+}
