@@ -1,0 +1,17 @@
+#tbuttons {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  margin: 5px;
+}
+
+#tbuttons a {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  width: 10vw;
+}
+
+#tbuttons a:hover {
+  color: rgb(67, 67, 67);
+}

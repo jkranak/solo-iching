@@ -1,7 +1,17 @@
+import React, { useState } from 'react';
+import Pizzly from 'pizzly-js';
+import Login from './components/login/login';
 import './App.css';
 import Question from './components/question/question';
 
+export const LoginContext = React.createContext();
+
 function App() {
+  const pizzly = new Pizzly({ host: 'https://ichingpizzly.herokuapp.com/auth/callback'});
+  const api = pizzly.integration('api');
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState('');
   
   return (
     <div className="App">
