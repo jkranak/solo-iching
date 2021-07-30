@@ -1,11 +1,10 @@
-import hexdict from '../../hexdata/hexdict.json'
+import { useContext } from 'react';
+import hexdict from '../../data/hexdict.json'
 import './result.css';
-import Translation from '../translation/translation';
+import { ResultContext } from '../question/question';
 
-function Result({question, result}) {
-  
-  const result1 = result[1][0];
-  const result2 = result[1][1]
+export default function Result() {
+  const result = useContext(ResultContext);
 
   function lineRender (num) {
     if (num === 7) return '—————';
@@ -17,40 +16,47 @@ function Result({question, result}) {
   return (
     <div id="results">
       <h2>Results</h2>
-      <div id="hexdisplay">
-        <div id="linenum">
-          <p>line</p>
-          <p>number</p>
-        </div>
-        <p id="hexagram">
-          {result[0].map((el, index) => (
-          <li key={index}><span id="linenums">{6 - index}</span>&nbsp;&nbsp;<span>{lineRender(el)}</span></li>
+      <table>
+          <tr>
+            <td id="linenumhead">line numbers</td>
+            <td id="hexhead" className="hexlines">Hexagram</td>
+          </tr>
+          {result["divination"].map((el, index) => (
+          <tr>
+            <td className="linenums">{6 - index}</td>
+            <td className="hexlines">{lineRender(el)}</td>
+          </tr>
         ))}
-        </p>
-      </div>
-      <h3>Your question: {question}</h3>
-      <div id="hexinfo">
-        <div>
-          <h1>{result1}: <span dangerouslySetInnerHTML={{ __html: hexdict[result1]["hexagram"]}}></span></h1>
-          <p><span dangerouslySetInnerHTML={{ __html: hexdict[result1]["chinese"]}}></span>: <span>{hexdict[result1]["pinyin"]}</span></p>
-          <p>"{hexdict[result1]["english"]}"</p>
-        </div>
-        {result2 ? 
+        </table>
+      {result["question"] ? <h3>Your question: {result["question"]}</h3> : <></>}
+        <div id="hexinfo">
+          <div className="hexinfos">
+            <div className="hexagram" dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][0]]["hexagram"]}}></div>
+            <div>
+              <h1>{result["numbers"][0]}</h1>
+              <p><span dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][0]]["chinese"]}}></span>: 
+                <span>{hexdict[result["numbers"][0]]["pinyin"]}</span></p>
+              <p>"{hexdict[result["numbers"][0]]["english"]}"</p>
+            </div>
+          </div>
+        {result["numbers"][1] ? 
         <>
-        <div id="changing">
-          <p>changing</p>
-          <p>into</p>
-          <h1>&#8594;</h1>
-        </div>
-        <div>
-          <h1>{result2}: <span dangerouslySetInnerHTML={{ __html: hexdict[result2]["hexagram"]}}></span></h1>
-          <p><span dangerouslySetInnerHTML={{ __html: hexdict[result2]["chinese"]}}></span>: <span>{hexdict[result2]["pinyin"]}</span></p>
-          <p>"{hexdict[result2]["english"]}"</p>
-        </div></> : <></>}
+          <div id="changing">
+            <p>changing</p>
+            <p>into</p>
+            <h1>&#8594;</h1>
+          </div>
+          <div className="hexinfos">
+            <div className="hexagram" dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][1]]["hexagram"]}}></div>
+            <div>
+              <h1>{result["numbers"][1]}</h1>
+              <p><span dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][1]]["chinese"]}}></span>: 
+                <span>{hexdict[result["numbers"][1]]["pinyin"]}</span></p>
+              <p>"{hexdict[result["numbers"][1]]["english"]}"</p>
+            </div>
+          </div>
+        </> : <></>}
       </div>
-      <Translation result={result}/>
     </div>
   );
 }
-
-export default Result;

@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Result from '../result/result';
+import Translation from '../translation/translation';
 import divination from '../../services/divination';
+import History from '../history/history'; 
 import './question.css';
+
+export const ResultContext = React.createContext();
 
 function Question() {
   const [question, setQuestion] = useState('');
   const [isAsked, setIsAsked] = useState(false);
-  // const [method, setMethod] = useState('');
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState({
+    divination: [],
+    numbers: [],
+    lines: [],
+    method: '',
+    question: ''
+  });
 
   function handleChange (event) {
     setQuestion(event.target.value);
@@ -16,14 +25,18 @@ function Question() {
   function handleSubmit (event) {
     event.preventDefault();
     const divResult = divination(event.target.id);
-    setResult(divResult);
+    setResult(Object.assign(divResult, question));
     setIsAsked(true);
   }
 
+  function resetAsked () {
+    setQuestion('');
+    setIsAsked(false);
+  }
+
   return (
-    <div>
-      {isAsked ? 
-      <Result question={question} result={result}/> : 
+    <div id="container">
+      {!isAsked ?  
       <><p>Enter Question</p>
       <form>
         <input type="text" name="question" onChange={handleChange} placeholder="Enter your question..." />
@@ -32,6 +45,14 @@ function Question() {
           <button id="coin" onClick={handleSubmit}>Coin Method</button>
         </div>
       </form>
+      </> : 
+      <>
+        <ResultContext.Provider value={result}>
+          <Result />
+          <History />
+          <Translation />
+        </ResultContext.Provider>
+        <button id="reset" onClick={resetAsked}>Ask another question</button>
       </>}
     </div>
   );
