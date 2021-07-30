@@ -1,4 +1,4 @@
-import hexNumber from '../hexdata/hexnumber.json';
+import hexNumber from '../data/hexnumber.json';
 
 function yarrowStalk () {
   const remainders = num => num % 4 === 0 ? 4 : num % 4;
@@ -53,9 +53,9 @@ function hexagram (method) {
         divinationChange += divination[i].toString();
       }
     }
-    return [divination.reverse(), [hexNumber[divination1], hexNumber[divinationChange]], lines, method];
+    return {divination: divination.reverse(), numbers: [hexNumber[divination1], hexNumber[divinationChange]], lines, method};
   }
-  return [divination.reverse(), [hexNumber[divination.join('')]], [], method];
+  return {divination: divination.reverse(), numbers: [hexNumber[divination.join('')]], lines: [], method};
 }
 
 export default hexagram;

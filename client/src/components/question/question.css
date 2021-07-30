@@ -1,0 +1,9 @@
+* {
+  margin: 0;
+}
+
+#container {
+  width: 60vw;
+  flex-direction: column;
+  text-indent: 0;
+}
