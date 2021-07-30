@@ -1,28 +1,14 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import translations from '../../data/translations.json';
 import './translation.css';
 import hexdict from '../../data/hexdict.json';
 import { ResultContext } from '../question/question';
 
-function Translation() {
-  const [translator, setTranslator] = useState('legge');
+function Translation({translator}) {
   const result = useContext(ResultContext);
 
-  function handleClick (event) {
-    event.preventDefault();
-    setTranslator(event.target.id);
-  }
-
   return (
-    <div id="translation">
-      <div id="tbuttons">
-        <p>Currently Displaying translation by {translator === 'legge' ? <a href="https://sacred-texts.com/ich/">James Legge</a> : translator === 'wilhelm' ? <a href="http://www.pantherwebworks.com/i_ching/index.html">Richard Wilhelm</a> : <a href="http://grichter.sites.truman.edu/home/">Gregory C. Richter</a>}.</p>
-        <p>Show other translations:&nbsp;</p>
-        {translator !== 'legge' ? <button id="legge" onClick={handleClick}>James Legge</button> : <></>}
-        {translator !== 'wilhelm' ? <button id="wilhelm" onClick={handleClick}>Richard Wilhelm</button> : <></>}
-        {translator !== 'richter' ? <button id="richter" onClick={handleClick}>Gregory C. Richter</button> : <></>} 
-      </div>
-      <div id="translationtext">
+      <div id="translation">
         <h2>Commentary on Hexagram {result["numbers"][0]} ({hexdict[result["numbers"][0]]["pinyin"]})</h2>
         {translator === 'wilhelm' ? <h2>Judgment</h2> : <></>}
         <div>{translations[translator][result["numbers"][0]].main.map((el, index) => (
@@ -52,7 +38,6 @@ function Translation() {
           : <></>}
         </div>
       </div>
-    </div>
   );
 }
 

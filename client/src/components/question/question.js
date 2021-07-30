@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import divination from '../../services/divination';
+
 import Result from '../result/result';
 import Translation from '../translation/translation';
-import divination from '../../services/divination';
-import History from '../history/history'; 
+import History from '../history/history';
+import Switch from '../switch/switch';
+
 import './question.css';
 
 export const ResultContext = React.createContext();
 
-function Question() {
+export default function Question() {
   const [question, setQuestion] = useState('');
   const [isAsked, setIsAsked] = useState(false);
   const [result, setResult] = useState({
@@ -17,6 +20,7 @@ function Question() {
     method: '',
     question: ''
   });
+  const [translator, setTranslator] = useState('legge');
 
   function handleChange (event) {
     setQuestion(event.target.value);
@@ -25,13 +29,19 @@ function Question() {
   function handleSubmit (event) {
     event.preventDefault();
     const divResult = divination(event.target.id);
-    setResult(Object.assign(divResult, question));
+    divResult["question"] = question
+    setResult(divResult);
     setIsAsked(true);
   }
 
   function resetAsked () {
     setQuestion('');
     setIsAsked(false);
+  }
+
+  function changeTranslator (event) {
+    event.preventDefault();
+    setTranslator(event.target.id);
   }
 
   return (
@@ -50,14 +60,11 @@ function Question() {
         <ResultContext.Provider value={result}>
           <Result />
           <History />
-          <Translation />
+          <Switch changeTranslator={changeTranslator} translator={translator} />
+          <Translation changeTranslator={changeTranslator} translator={translator} />
         </ResultContext.Provider>
         <button id="reset" onClick={resetAsked}>Ask another question</button>
       </>}
     </div>
   );
 }
-
-export default Question;
-
-

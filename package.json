@@ -2,13 +2,14 @@
   "name": "i-ching",
   "version": "1.0.0",
   "description": "A program for consulting the I-Ching",
-  "main": "divination.js",
+  "main": "./client/src/App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joseph Kranak",
   "license": "ISC",
   "dependencies": {
+    "pizzly-js": "^0.2.8",
     "react": "^17.0.2"
   }
 }

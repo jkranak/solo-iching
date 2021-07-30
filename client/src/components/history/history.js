@@ -6,8 +6,6 @@ import { ResultContext } from '../question/question';
 export default function History() {
   const result = useContext(ResultContext);
 
-
-
   return (
     <div>
      Your history
