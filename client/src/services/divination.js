@@ -30,7 +30,7 @@ function coinMethod () {
   return results;
 }
 
-function hexagram (method) {
+export default function hexagram (method) {
   let divination = [];
   if (method === 'yarrow') divination = yarrowStalk();
   else if (method === 'coin') divination = coinMethod();
@@ -57,5 +57,3 @@ function hexagram (method) {
   }
   return {divination: divination.reverse(), numbers: [hexNumber[divination.join('')]], lines: [], method};
 }
-
-export default hexagram;
