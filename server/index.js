@@ -9,6 +9,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const router = require('./router');
 
+const PORT = process.env.PORT || 3002;
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -18,7 +20,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true}));
+app.use(cors({ origin: process.env.CLIENT, credentials: true}));
 
 passport.serializeUser((user, done) => {
   return done(null, user);
@@ -29,12 +31,6 @@ passport.deserializeUser((user, done) => {
 })
 
 app.use(router);
-
-const PORT = process.env.PORT || 3002;
-
-app.listen(PORT, () => {
-  console.log(`Server listening at localhost:${PORT}`)
-});
 
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
@@ -52,5 +48,14 @@ function(accessToken, refreshToken, profile, cb) {
   app.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/'}),
     function (req, res) {
-      res.redirect('/');
+      res.redirect(process.env.CLIENT);
   });
+
+  app.get('/getuser', (req, res) => {
+    res.send(req.user);
+  })
+
+  app.listen(PORT, () => {
+    console.log(`Server listening at localhost:${PORT}`)
+  });
+  

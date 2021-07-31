@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { createContext, useEffect, useState} from 'react';
+import axios from 'axios';
+
 import Login from './components/login/login';
 import './App.css';
 import Question from './components/question/question';
 
-export const LoginContext = React.createContext();
+export const LoginContext = React.createContext({});
 
-function App() {
+export default function App() {
 
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [userId, setUserId] = useState('');
+  const [userObj, setUserObj] = useState({});
+
+  useEffect(() => {
+    axios.get(process.env.GET_USER, { withCredentials: true}).then(res => {
+      if (res.data) setUserObj(res.data);
+      console.log(userObj);
+    })
+  }, []);
   
   return (
     <div className="App">
-      <h1>Yijing</h1>
-      <h2>&#x2630; &#x2631; &#x2632; &#x2633; &#x2634; &#x2635; &#x2636; &#x2637;</h2>
-      <Login />
-      <Question />
+      <LoginContext.Provider value={userObj}>
+        <Login />
+        <Question />
+      </LoginContext.Provider>
     </div>
   );
 }
-
-export default App;
