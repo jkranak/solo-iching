@@ -1,0 +1,17 @@
+#navbar {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 8vh;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+#navbar button {
+  height: 60%;
+  margin: auto;
+  vertical-align: middle;
+  background-color: rgb(187, 180, 109);
+  width: 80px;
+  border: 0;
+}

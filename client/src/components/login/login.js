@@ -9,7 +9,7 @@ export default function Login() {
 
   return (
 <div>
-    <button onClick={googleLogin}>Login</button>
+    <button onClick={googleLogin}>Login with Google</button>
 </div>
 
   );

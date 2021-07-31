@@ -17,16 +17,20 @@ export default function Result() {
     <div id="results">
       <h2>Results</h2>
       <table>
-          <tr>
-            <td id="linenumhead">line numbers</td>
-            <td id="hexhead" className="hexlines">Hexagram</td>
-          </tr>
-          {result["divination"].map((el, index) => (
-          <tr>
-            <td className="linenums">{6 - index}</td>
-            <td className="hexlines">{lineRender(el)}</td>
-          </tr>
-        ))}
+          <thead>
+            <tr>
+              <td id="linenumhead">line numbers</td>
+              <td id="hexhead" className="hexlines">Hexagram</td>
+            </tr>
+          </thead>
+          <tbody>
+            {result["divination"].map((el, index) => (
+            <tr key={index + 30}>
+              <td className="linenums">{6 - index}</td>
+              <td className="hexlines">{lineRender(el)}</td>
+            </tr>
+            ))}
+          </tbody>
         </table>
       {result["question"] ? <h3>Your question: {result["question"]}</h3> : <></>}
         <div id="hexinfo">

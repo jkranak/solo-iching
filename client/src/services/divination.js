@@ -53,7 +53,17 @@ export default function hexagram (method) {
         divinationChange += divination[i].toString();
       }
     }
-    return {divination: divination.reverse(), numbers: [hexNumber[divination1], hexNumber[divinationChange]], lines, method};
+    return {
+      divination: divination.reverse(), 
+      numbers: [hexNumber[divination1], hexNumber[divinationChange]], 
+      lines, 
+      method
+    };
   }
-  return {divination: divination.reverse(), numbers: [hexNumber[divination.join('')]], lines: [], method};
+  return {
+    divination: divination.reverse(), 
+    numbers: [hexNumber[divination.join('')]], 
+    lines: [], 
+    method
+  };
 }

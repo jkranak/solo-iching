@@ -20,7 +20,7 @@ table {
   margin: auto;
   width: 180px;
   border: 1px solid;
-  background-color: beige;
+  background-color: rgb(255, 251, 213);
   border-collapse: collapse;
 }
 
@@ -50,14 +50,9 @@ table {
   font-size: 4.5em;
 }
 
-@media only screen and (max-width: 800px) {
-  #results {
-    width: 100vw;
-  }
-}
 
-@media only screen and (max-width: 1200px) and (min-width: 800px) {
-  #results {
-    width: 80vw;
-  }
+
+.hexlines {
+  font-family: monospace;
+  font-size: large;
 }

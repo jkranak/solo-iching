@@ -27,7 +27,7 @@ function Translation({translator}) {
               <h2>Line Commentary</h2> 
               <div>{result["lines"].map((el) => (
                 <p className="comments"  key={el + 24}>{el}: {translations[translator][result["numbers"][0]][el].map((line, index) => (
-                  <span>{line}</span>
+                  <span key={index + 30}>{line}</span>
                 ))}</p>
               ))}</div>
               <h2>Commentary on Hexagram {result["numbers"][1]} ({hexdict[result["numbers"][1]]["pinyin"]})</h2>
