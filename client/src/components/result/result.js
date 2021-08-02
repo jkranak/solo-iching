@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import hexdict from '../../data/hexdict.json'
 import './result.css';
-import { ResultContext } from '../question/question';
+import { ResultContext } from '../../App';
 
 export default function Result() {
   const result = useContext(ResultContext);
@@ -15,7 +15,7 @@ export default function Result() {
 
   return (
     <div id="results">
-      <h2>Results</h2>
+      {result.method === 'lookup' ? <></> : <><h2>Results</h2>
       <table>
           <thead>
             <tr>
@@ -31,7 +31,7 @@ export default function Result() {
             </tr>
             ))}
           </tbody>
-        </table>
+        </table></>}
       {result["question"] ? <h3>Your question: {result["question"]}</h3> : <></>}
         <div id="hexinfo">
           <div className="hexinfos">
@@ -43,7 +43,7 @@ export default function Result() {
               <p>"{hexdict[result["numbers"][0]]["english"]}"</p>
             </div>
           </div>
-        {result["numbers"][1] ? 
+        {result["numbers"][1] && result.method !== 'lookup' ? 
         <>
           <div id="changing">
             <p>changing</p>
@@ -53,7 +53,7 @@ export default function Result() {
           <div className="hexinfos">
             <div className="hexagram" dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][1]]["hexagram"]}}></div>
             <div>
-              <h1>{result["numbers"][1]}</h1>
+              <h1>{result["numbers"][1]} </h1>
               <p><span dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][1]]["chinese"]}}></span>: 
                 <span>{hexdict[result["numbers"][1]]["pinyin"]}</span></p>
               <p>"{hexdict[result["numbers"][1]]["english"]}"</p>

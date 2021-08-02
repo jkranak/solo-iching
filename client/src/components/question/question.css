@@ -3,7 +3,55 @@
 }
 
 #container {
-  width: 60vw;
-  flex-direction: column;
+  width: 100vw;
+  height: 100vh;            
   text-indent: 0;
+  grid-row-start: 2;
+  align-self: start;
+}
+
+#logo {
+  margin-bottom: 25px;
+}
+
+#container form {
+  margin: 10px;
+}
+
+#container form button {
+  margin: 10px;
+  height: 45px;
+  min-height: 45px;
+}
+
+#tbuttons {
+  width: 10%;
+  margin: 5px;
+}
+
+#tbuttons a {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  width: 10vw;
+}
+
+#tbuttons a:hover {
+  color: rgb(67, 67, 67);
+}
+#tbuttons button {
+  margin: 5px;
+  height: 40px;
+}
+
+#translation {
+  display: flex;
+  flex-direction: row;
+}
+
+#upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }

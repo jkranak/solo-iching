@@ -6,6 +6,7 @@ import Navbar from './components/navbar/navbar';
 import './App.css';
 
 export const LoginContext = React.createContext({});
+export const ResultContext = React.createContext();
 
 export default function App () {
 
@@ -23,11 +24,22 @@ export default function App () {
     })
   }, []);
   
+  const [result, setResult] = useState({
+    divination: [],
+    numbers: [],
+    lines: [],
+    method: '',
+    question: ''
+  });
+
+
   return (
     <div className="App">
       <LoginContext.Provider value={userObj}>
-        <Navbar isLoggedIn={isLoggedIn} setIsAsked={setIsAsked} setQuestion={setQuestion}/>
-        <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion}/>
+      <ResultContext.Provider value={result}>
+        <Navbar isLoggedIn={isLoggedIn} setIsAsked={setIsAsked} setQuestion={setQuestion} setResult={setResult}/>
+        <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult}/>
+        </ResultContext.Provider>
       </LoginContext.Provider>
     </div>
   );

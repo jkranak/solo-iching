@@ -1,17 +1,78 @@
 #navbar {
-  display: flex;
-  flex-direction: row;
+  display: inline-grid;
   width: 100vw;
-  height: 8vh;
-  justify-content: space-evenly;
-  text-align: center;
+  height: 12vh;
+  grid-row-start: 1;
+  align-self: start;
 }
 
 #navbar button {
-  height: 60%;
-  margin: auto;
-  vertical-align: middle;
-  background-color: rgb(187, 180, 109);
-  width: 80px;
   border: 0;
+  margin: 10px;
+  min-height: 30px;
+  margin-bottom: 0;
+}
+
+#pulldown {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  height: 150px;
+  z-index: 5;
+  grid-column-start: 3;
+  justify-self: center;
+}
+
+#login button {
+  z-index: 10;
+  height: 30px;
+  width: 120px;
+  margin: 0;
+  padding: 5px;
+  
+}
+
+#login {
+  background-color: rgb(155, 148, 73);
+  width: 220px;
+  z-index: 10;
+  margin: 0;
+}
+
+#navbar form {
+  height: 30px;
+  width: 120px;
+  display: flex;
+  flex-direction: row;
+  margin-right: 80px;
+  grid-column-start: 2;
+  justify-self: end;
+}
+
+
+label {
+  font-size: small;
+  margin-right: 10px;
+  z-index: 5;
+  height: 30px;
+  white-space: nowrap;
+  margin-top: 10px;
+}
+
+#navbar input {
+  margin: 10px;
+  height: 20px;
+  z-index: 4;
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#navbar form button {
+  height: 30px;
+  min-height: 30px;
 }

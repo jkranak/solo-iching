@@ -9,16 +9,10 @@ import Switch from '../switch/switch';
 import './question.css';
 import { LoginContext } from '../../App';
 
-export const ResultContext = React.createContext();
 
-export default function Question ({ isAsked, setIsAsked, question, setQuestion }) {
-  const [result, setResult] = useState({
-    divination: [],
-    numbers: [],
-    lines: [],
-    method: '',
-    question: ''
-  });
+export default function Question ({ 
+  isAsked, setIsAsked, question, setQuestion, setResult }) {
+
   const [translator, setTranslator] = useState('legge');
   const login = useContext(LoginContext);
 
@@ -43,9 +37,11 @@ export default function Question ({ isAsked, setIsAsked, question, setQuestion }
     <div id="container">
       {!isAsked ?  
       <>
-        <h1>Yijing</h1>
+        <div id="logo"><h1>The I Ching</h1>
         <h2>&#x2630; &#x2631; &#x2632; &#x2633; &#x2634; &#x2635; &#x2636; &#x2637;</h2>
-        <p>Enter Question</p>
+        </div>
+
+        <p>Ask a question [optional]</p>
         <form>
           <input type="text" name="question" onChange={handleChange} placeholder="Enter your question..." />
           <div>
@@ -55,13 +51,17 @@ export default function Question ({ isAsked, setIsAsked, question, setQuestion }
         </form>
       </> : 
       <>
-        <ResultContext.Provider value={result}>
-        <Result />
-        <History />{login.id ? <></> : <p>Log in to save your history</p>}
-          <Switch changeTranslator={changeTranslator} translator={translator} />
+        <div id="upper">
+          <Result />
+          <History login={login}/>
+        </div>
+        <div id="translation">
+          <div id="tbuttons">
+            <Switch changeTranslator={changeTranslator} translator={translator} />
+          </div>
           <Translation changeTranslator={changeTranslator} translator={translator} />
-        </ResultContext.Provider>
-        
+          
+        </div>
       </>}
     </div>
   );
