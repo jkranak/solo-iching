@@ -31,7 +31,7 @@ export default function Result() {
             </tr>
             ))}
           </tbody>
-        </table></>}
+        </table>
       {result["question"] ? <h3>Your question: {result["question"]}</h3> : <></>}
         <div id="hexinfo">
           <div className="hexinfos">
@@ -61,6 +61,7 @@ export default function Result() {
           </div>
         </> : <></>}
       </div>
+      </>}
     </div>
   );
 }

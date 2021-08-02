@@ -1,13 +1,11 @@
 * {
-  margin: 0;
+  margin: 0; 
 }
 
 #container {
   width: 100vw;
   height: 100vh;            
   text-indent: 0;
-  grid-row-start: 2;
-  align-self: start;
 }
 
 #logo {
@@ -31,7 +29,6 @@
 
 #tbuttons a {
   font-weight: bold;
-  text-decoration: none;
   color: black;
   width: 10vw;
 }
@@ -39,9 +36,12 @@
 #tbuttons a:hover {
   color: rgb(67, 67, 67);
 }
+
 #tbuttons button {
   margin: 5px;
   height: 40px;
+  width: 100%;
+  padding: 0;
 }
 
 #translation {
@@ -53,5 +53,44 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: flex-end;
+}
+
+#lookuphex {
+  justify-content: center;
+}
+
+form input {
+  font-size: large;
+}
+
+#methodbuttons {
   align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 900px) {
+  #upper {
+    flex-direction: column;
+    align-items: center;
+  }
+  #save {
+    white-space: nowrap;
+    width: 180px;
+    height: 30px;
+  }
+  #translation {
+    flex-direction: column;
+    align-items: center;
+  }
+  #tbuttons {
+    white-space: nowrap;
+    margin-top: 3%;
+    width: 100%;
+  }
+  #tbuttons button {
+    height: 30px;
+    width: 125px;
+  }
 }

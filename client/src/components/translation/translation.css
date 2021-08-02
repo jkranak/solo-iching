@@ -6,3 +6,19 @@
 #translationtext {
   width: 75vw;
 }
+
+#translationtext h2 {
+  margin: 1em;
+}
+
+#translationtext p {
+  margin: 0.2em;
+  font-size: 1.2em;
+}
+
+#linecomm p {
+  text-indent: 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+

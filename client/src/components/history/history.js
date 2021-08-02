@@ -3,8 +3,12 @@ import hexdict from '../../data/hexdict.json'
 import './history.css';
 import { ResultContext } from '../../App';
 
-export default function History({ login }) {
+export default function History({ login, setLoginPage }) {
   const result = useContext(ResultContext);
+
+  function loginClick () {
+    setLoginPage(true);
+  }
 
   return (
     <>{result.method === 'lookup' ? <></> : <div>
@@ -33,7 +37,7 @@ export default function History({ login }) {
         </tr>
       </tbody>
      </table>
-     {login.id ? <></> : <p id="save">Log in to save your history</p>}
+     {login.id ? <></> : <button id="save" onClick={loginClick}>Log in to save your history</button>}
     </div>}
     </>
   );

@@ -24,6 +24,7 @@
   grid-row-start: 3;
   grid-column-start: 3;
   margin: auto;
+  justify-content: center;
 }
 
 #results, #hexinfo, #changing, .hexinfos {

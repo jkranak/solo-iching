@@ -3,10 +3,12 @@ import axios from 'axios';
 
 import Question from './components/question/question';
 import Navbar from './components/navbar/navbar';
+import Login from './components/login/login';
 import './App.css';
 
 export const LoginContext = React.createContext({});
 export const ResultContext = React.createContext();
+export const LoginPageContext = React.createContext(false);
 
 export default function App () {
 
@@ -14,6 +16,7 @@ export default function App () {
   const [userObj, setUserObj] = useState({});
   const [isAsked, setIsAsked] = useState(false);
   const [question, setQuestion] = useState('');
+  const [loginPage, setLoginPage] = useState(false);
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_GET_USER, { withCredentials: true}).then(res => {
@@ -37,9 +40,11 @@ export default function App () {
     <div className="App">
       <LoginContext.Provider value={userObj}>
       <ResultContext.Provider value={result}>
-        <Navbar isLoggedIn={isLoggedIn} setIsAsked={setIsAsked} setQuestion={setQuestion} setResult={setResult}/>
-        <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult}/>
-        </ResultContext.Provider>
+        <Navbar isLoggedIn={isLoggedIn} setIsAsked={setIsAsked} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage}/>
+        {loginPage ? 
+          <Login /> : 
+          <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage}/>}
+      </ResultContext.Provider>
       </LoginContext.Provider>
     </div>
   );

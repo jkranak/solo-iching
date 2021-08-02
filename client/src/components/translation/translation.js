@@ -25,7 +25,7 @@ function Translation({translator}) {
           {result["lines"].length ? 
             <>
               <h2>Line Commentary</h2> 
-              <div>{result["lines"].map((el) => (
+              <div id="linecomm">{result["lines"].map((el) => (
                 <p className="comments"  key={el + 24}>{el}: {translations[translator][result["numbers"][0]][el].map((line, index) => (
                   <span key={index + 30}>{line}</span>
                 ))}</p>
