@@ -59,22 +59,20 @@ export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult,
       </form>
       <div id="pulldown">
         <button onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onClick={loginClick} >Login</button>
-        {hovering ? 
-            <div id="login">
-              <button id="google" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter}  >
-              <img src={googleLogo} height="25px" alt="Google logo" />Login with Google
+        {hovering &&
+          <div id="login">
+            <button id="google" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}  >
+            <img src={googleLogo} height="25px" alt="Google logo" />Login with Google
+            </button>
+            <button id="twiter" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} >
+              <img src={twitterLogo} height="20px" alt="Google logo" />Login with Twitter
+            </button>
+            <button id="github" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} >
+            <img src={githublogo} height="25px" alt="Google logo" />
+            Login with Github
               </button>
-              <button id="twiter" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} >
-                <img src={twitterLogo} height="20px" alt="Google logo" />Login with Twitter
-              </button>
-              <button id="github" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} >
-              <img src={githublogo} height="25px" alt="Google logo" />
-              Login with Github
-                </button>
-            </div>
-         :<></>}
+          </div>}
       </div>
     </div>
-
   );
 }

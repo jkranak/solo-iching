@@ -19,12 +19,13 @@ function addUser (user) {
     .catch(err => console.error(err.stack));
 }
 
-function addResults (results) {
+function addResults (id, history) {
   const pgClient = new pg.Client(connectString);
   pgClient.connect();
-  for (let i = 0; i < results.length; i++) {
+  letOutputArr = [];
+  for (let i = 0; i < history.length; i++) {
     const text = 'INSERT INTO results("userid", "question", "divination", "numbers", "lines", "method") VALUES($1, $2, $3, $4, $5, $6);';
-    const values = [results[i].userid, results[i].question, results[i].divination.join(''), results[i].numbers.join(''), results[i].divination.join(''), results[i].method]
+    const values = [id, history[i].question, history[i].divination.join(','), history[i].numbers.join(','), history[i].lines.join(','), history[i].method]
     pgClient
     .query(text, values)
     .catch(err => console.error(err.stack));

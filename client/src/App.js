@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import axios from 'axios';
+import addHistory from './services/api';
 
 import Question from './components/question/question';
 import Navbar from './components/navbar/navbar';
@@ -27,12 +28,13 @@ export default function App () {
   const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
+    console.log(resultList);
     if (isLoggedIn === false) {
       axios.get(process.env.REACT_APP_GET_USER, { withCredentials: true}).then(res => {
         if (res.data) {
           setUserObj(res.data);
           setIsLoggedIn(true);
-          checkUser(res.data, resultList);
+          checkUser(res.data);
         };
       })
     }
@@ -44,36 +46,26 @@ export default function App () {
     setLoginPage(false);
   }
 
-  function checkUser (user, history) {
+  function checkUser (user) {
+    console.log('49', resultList);
     axios({
       url: process.env.REACT_APP_CHECK_USER,
       method: 'POST',
       data: user
     }).then(res => {
       if (res.data.length === 0) {
-        addHistory(user.id, history);
+        console.log('resultList', resultList);
+        addHistory(user.id, resultList);
       } else {
-        getHistory(user.id, history)
+        const fullHist = []
+        if (resultList.length) fullHist.push(...resultList);
+        fullHist.push(...res.data);
+        setResultList(fullHist)
       }
     })
   }
   
-  function addHistory (id, history) {
-    axios({
-      url: process.env.REACT_APP_ADD_HISTORY,
-      method: 'POST',
-      data: {id, history}
-    })
-  }
-  
-  async function getHistory (id, history) {
-    const pastHist = await axios(
-      `${process.env.REACT_APP_GET_HISTORY}?id=${id}`
-    )
-    await addHistory(id, history);
-    const fullHist = [history, ...pastHist];
-    setResultList(fullHist)
-  }
+
 
   return (
     <div className="App">

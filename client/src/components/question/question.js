@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import divination from '../../services/divination';
 import hexdict from '../../data/hexdict.json';
+import addHistory from '../../services/api';
 
 import Result from '../result/result';
 import Translation from '../translation/translation';
@@ -30,10 +31,10 @@ export default function Question ({
     divResult["question"] = question
     setResult(divResult);
     setIsAsked(true);
+    if (login.id) addHistory(login.id, [divResult])
     const allResults = [...resultList];
     allResults.push(divResult);
     setResultList(allResults);
-    console.log(resultList);
   }
 
   function changeTranslator (event) {
@@ -58,7 +59,7 @@ export default function Question ({
         </form>
       </> : 
       <>
-        {result.method === 'lookup' ? 
+        {result.method === 'lookup' && 
         <div className="hexinfos" id ="lookuphex">
           <div className="hexagram" dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][0]]["hexagram"]}}></div>
           <div>
@@ -67,7 +68,7 @@ export default function Question ({
               <span>{hexdict[result["numbers"][0]]["pinyin"]}</span></p>
             <p>"{hexdict[result["numbers"][0]]["english"]}"</p>
           </div>
-        </div> : <></>}
+        </div>}
         <div id="upper">
           <Result />
           <History login={login} setLoginPage={setLoginPage}/>

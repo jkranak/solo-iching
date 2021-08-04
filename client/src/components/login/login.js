@@ -30,7 +30,7 @@ export default function Login ({ isLoggedIn, oauthLogin, setIsLoggedIn, setUserO
       <img src={githublogo} height="25px" alt="Google logo" />
         Login with Github
         </button>
-        <button id="logout" onClick={logOut} disable={!isLoggedIn} >Log out</button>
+        <button id="logout" onClick={logOut} disabled={!isLoggedIn} >Log out</button>
     </div>
   );
 }
