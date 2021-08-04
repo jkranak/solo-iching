@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const router = require('./router');
+const router = require('./router')
 
 const session = require('express-session');
 const passport = require('passport');
@@ -24,6 +24,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true}));
+app.use(router);
 
 passport.serializeUser((user, done) => {
   return done(null, user);
@@ -32,8 +33,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   return done(null, user);
 })
-
-app.use(router);
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_ID,
@@ -46,7 +45,6 @@ function(accessToken, refreshToken, profile, cb) {
     name: profile.displayName,
     source: 'google'
   }
-  console.log(userObj);
   cb(null, userObj);
   }));
 
@@ -62,7 +60,7 @@ function(accessToken, refreshToken, profile, cb) {
   passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_ID,
     consumerSecret: process.env.TWITTER_SECRET,
-    callbackURL: "/auth/twitter/callback"
+    callbackURL: "/auth/twiter/callback"
   },
   function(token, tokenSecret, profile, cb) {
     const userObj = {
@@ -70,15 +68,14 @@ function(accessToken, refreshToken, profile, cb) {
       name: profile.displayName,
       source: 'twitter'
     }
-    console.log(userObj);
     cb(null, userObj);
   }
 ));
 
-app.get('/auth/twitter',
+app.get('/auth/twiter',
   passport.authenticate('twitter'));
 
-app.get('/auth/twitter/callback', 
+app.get('/auth/twiter/callback', 
   passport.authenticate('twitter', { failureRedirect: process.env.CLIENT_URL }),
   function(req, res) {
     res.redirect(process.env.CLIENT_URL);
@@ -95,7 +92,6 @@ app.get('/auth/twitter/callback',
       name: profile.displayName,
       source: 'github'
     }
-    console.log(userObj);
     cb(null, userObj);
   }
   ));
@@ -113,7 +109,17 @@ app.get('/auth/twitter/callback',
     res.send(req.user);
   })
 
+  app.get('/checkuser', (req, res) => {
+    res.send(req.user);
+  })
+
+  app.delete('/logout', (req, res) => {
+    req.session.destroy(function() {
+      res.clearCookie('connect.sid', { path: '/' });
+  });
+    return res.status(204);
+  })
+
   app.listen(PORT, () => {
     console.log(`Server listening at localhost:${PORT}`)
   });
-  

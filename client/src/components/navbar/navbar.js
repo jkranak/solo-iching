@@ -4,16 +4,11 @@ import googleLogo from '../../assets/googlelogo.png';
 import twitterLogo from '../../assets/twitterlogo2.png';
 import githublogo from '../../assets/githublogo.png';
 
+export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult, setLoginPage, hovering, setHovering, oauthLogin}) {
 
-export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult, setLoginPage}) {
-  const [hovering, setHovering] = useState(false);
   const [hexNumber, setHexNumber] = useState(0);
-  
-  const oauthLogin = (event) => {
-    window.open(`http://localhost:3002/auth/${event.target.id}`, '_self');
-    setHovering(false);
-    setLoginPage(false);
-  }
+
+
 
   function mouseEnter () {
     setHovering(true);
@@ -67,16 +62,14 @@ export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult,
         {hovering ? 
             <div id="login">
               <button id="google" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter}  >
-              <img src={googleLogo} height="25px" alt="Google logo" />
-              <p>Login with Google</p>
+              <img src={googleLogo} height="25px" alt="Google logo" />Login with Google
               </button>
-              <button id="twitter" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} >
-                <img src={twitterLogo} height="20px" alt="Google logo" />
-                <p>Login with Twitter</p>
+              <button id="twiter" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} >
+                <img src={twitterLogo} height="20px" alt="Google logo" />Login with Twitter
               </button>
               <button id="github" onClick={oauthLogin} disabled={isLoggedIn} onMouseEnter={mouseEnter} >
               <img src={githublogo} height="25px" alt="Google logo" />
-              <p>Login with Github</p>
+              Login with Github
                 </button>
             </div>
          :<></>}

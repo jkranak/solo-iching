@@ -12,6 +12,10 @@
   margin-bottom: 25px;
 }
 
+#logo h1 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+} 
+
 #container form {
   margin: 10px;
 }
@@ -54,6 +58,7 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
+  margin: 0 10px;
 }
 
 #lookuphex {
@@ -68,6 +73,16 @@ form input {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+#results {
+  margin-right: calc((100vw - 1200px)/2);
+}
+
+@media only screen and (max-width: 1200px) {
+  #results {
+    margin-right: 0;
+  }
 }
 
 @media only screen and (max-width: 900px) {

@@ -6,18 +6,19 @@ import Result from '../result/result';
 import Translation from '../translation/translation';
 import History from '../history/history';
 import Switch from '../switch/switch';
-import { ResultContext } from '../../App';
+import { ResultContext, ResultListContext } from '../../App';
 
 import './question.css';
 import { LoginContext } from '../../App';
 
 
 export default function Question ({ 
-  isAsked, setIsAsked, question, setQuestion, setResult, setLoginPage }) {
+  isAsked, setIsAsked, question, setQuestion, setResult, setLoginPage, setResultList }) {
 
   const [translator, setTranslator] = useState('legge');
   const login = useContext(LoginContext);
   const result = useContext(ResultContext);
+  const resultList = useContext(ResultListContext);
 
   function handleChange (event) {
     setQuestion(event.target.value);
@@ -29,6 +30,10 @@ export default function Question ({
     divResult["question"] = question
     setResult(divResult);
     setIsAsked(true);
+    const allResults = [...resultList];
+    allResults.push(divResult);
+    setResultList(allResults);
+    console.log(resultList);
   }
 
   function changeTranslator (event) {

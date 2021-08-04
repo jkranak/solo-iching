@@ -24,15 +24,19 @@
   margin-left: 4px;
 }
 
-#twitterlogin p, #githublogin p {
-  background-color: rgb(0, 159, 242);
+#twiterlogin, #githublogin {
   color: white;
 }
 
-#twitterlogin, #twitterlogin img {
+#twiterlogin, #twiterlogin img {
   background-color: rgb(0, 159, 242);
 }
 
-#githublogin, #githublogin p {
+#githublogin {
   background-color: rgb(22, 22, 22);
 }
+
+#twiterlogin img, #githublogin img, #googlelogin img {
+  margin-right: 5px;
+}
+
