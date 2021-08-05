@@ -7,15 +7,15 @@ export default function Result() {
   const result = useContext(ResultContext);
 
   function lineRender (num) {
-    if (num === 7) return '—————';
-    if (num === 8) return '—— ——';
-    if (num === 6) return '——X——';
-    if (num === 9) return '——O——';
+    if (num === '7') return '—————';
+    if (num === '8') return '—— ——';
+    if (num === '6') return '——X——';
+    if (num === '9') return '——O——';
   }
 
   return (
     <div id="results">
-      {result.method === 'lookup' ? <></> : <><h2>Results</h2>
+      {result.method !== 'lookup' && <><h2>Results</h2>
       <table>
           <thead>
             <tr>
@@ -32,7 +32,7 @@ export default function Result() {
             ))}
           </tbody>
         </table>
-      {result["question"] ? <h3>Your question: {result["question"]}</h3> : <></>}
+      {result["question"] && <h3>Your question: {result["question"]}</h3>}
         <div id="hexinfo">
           <div className="hexinfos">
             <div className="hexagram" dangerouslySetInnerHTML={{ __html: hexdict[result["numbers"][0]]["hexagram"]}}></div>
@@ -43,7 +43,7 @@ export default function Result() {
               <p>"{hexdict[result["numbers"][0]]["english"]}"</p>
             </div>
           </div>
-        {result["numbers"][1] && result.method !== 'lookup' ? 
+        {result["numbers"][1] && result.method !== 'lookup' && 
         <>
           <div id="changing">
             <p>changing</p>
@@ -59,7 +59,7 @@ export default function Result() {
               <p>"{hexdict[result["numbers"][1]]["english"]}"</p>
             </div>
           </div>
-        </> : <></>}
+        </> }
       </div>
       </>}
     </div>

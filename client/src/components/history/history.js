@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import hexdict from '../../data/hexdict.json'
 import './history.css';
-import { ResultContext, ResultListContext } from '../../App';
+import { ResultContext, LoginContext } from '../../App';
 
-export default function History({ login, setLoginPage }) {
+export default function History({ setLoginPage, resultList }) {
   const result = useContext(ResultContext);
-  const resultList = useContext(ResultListContext);
+  const login = useContext(LoginContext);
 
   function loginClick () {
     setLoginPage(true);

@@ -13,7 +13,7 @@ function yarrowStalk () {
       line += sum === 4 || sum === 5 ? 3 : 2;
       remain -= sum;
     }
-    results.push(line);
+    results.push(line.toString());
   }
   return results;
 }
@@ -25,7 +25,7 @@ function coinMethod () {
     for (let i = 0; i < 3; i++) {
       line += 2 + Math.floor(Math.random() * 2);
     }
-    results.push(line);
+    results.push(line.toString());
   }
   return results;
 }
@@ -34,20 +34,22 @@ export default function hexagram (method) {
   let divination = [];
   if (method === 'yarrow') divination = yarrowStalk();
   else if (method === 'coin') divination = coinMethod();
-  if (divination.includes(6) || divination.includes(9)) {
+  if (divination.includes('6') || divination.includes('9')) {
     let divination1 = '';
     let divinationChange = '';
     let lines = [];
     for (let i = 0; i < 6; i++) {
-      if (divination[i] === 6) {
+      if (divination[i] === '6') {
         divination1 += '8';
         divinationChange += '7';
-        lines.push(i + 1);
+        let thisLine = i + 1;
+        lines.push(thisLine.toString());
       }
-      else if (divination[i] === 9) {
+      else if (divination[i] === '9') {
         divination1 += '7';
         divinationChange += '8';
-        lines.push(i + 1);
+        let thisLine = i + 1;
+        lines.push(thisLine.toString());
       } else {
         divination1 += divination[i].toString();
         divinationChange += divination[i].toString();

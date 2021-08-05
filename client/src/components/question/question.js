@@ -7,19 +7,18 @@ import Result from '../result/result';
 import Translation from '../translation/translation';
 import History from '../history/history';
 import Switch from '../switch/switch';
-import { ResultContext, ResultListContext } from '../../App';
+import { ResultContext } from '../../App';
 
 import './question.css';
 import { LoginContext } from '../../App';
 
 
 export default function Question ({ 
-  isAsked, setIsAsked, question, setQuestion, setResult, setLoginPage, setResultList }) {
+  isAsked, setIsAsked, question, setQuestion, setResult, setLoginPage, setResultList, resultList }) {
 
   const [translator, setTranslator] = useState('legge');
   const login = useContext(LoginContext);
   const result = useContext(ResultContext);
-  const resultList = useContext(ResultListContext);
 
   function handleChange (event) {
     setQuestion(event.target.value);
@@ -32,8 +31,7 @@ export default function Question ({
     setResult(divResult);
     setIsAsked(true);
     if (login.id) addHistory(login.id, [divResult])
-    const allResults = [...resultList];
-    allResults.push(divResult);
+    const allResults = [...resultList, divResult];
     setResultList(allResults);
   }
 
@@ -71,7 +69,7 @@ export default function Question ({
         </div>}
         <div id="upper">
           <Result />
-          <History login={login} setLoginPage={setLoginPage}/>
+          <History setLoginPage={setLoginPage} resultList={resultList}/>
         </div>
         <div id="translation">
           <div id="tbuttons">

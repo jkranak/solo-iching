@@ -6,9 +6,7 @@ import githublogo from '../../assets/githublogo.png';
 
 export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult, setLoginPage, hovering, setHovering, oauthLogin}) {
 
-  const [hexNumber, setHexNumber] = useState(0);
-
-
+  const [hexNumber, setHexNumber] = useState(1);
 
   function mouseEnter () {
     setHovering(true);
@@ -34,7 +32,7 @@ export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult,
     setResult({
       divination: [],
       numbers: [hexNumber],
-      lines: [1,2,3,4,5,6],
+      lines: ['1','2','3','4','5','6'],
       method: 'lookup',
       question: ''
     })
@@ -54,7 +52,7 @@ export default function Navbar ({isLoggedIn, setIsAsked, setQuestion, setResult,
       <button id="reset" onClick={resetAsked}>Home</button>
         <form onChange={handleChange} onSubmit={hexInput}>
         <label dangerouslySetInnerHTML={{__html: "<p>Browse by<br />hexagram number</p>"}}></label>
-        <input type="number" min="1" max="64" id="hexinput" placeholder="#"/>
+        <input required type="number" min="1" max="64" id="hexinput" placeholder="#"/>
         <button type="submit">Submit</button>
       </form>
       <div id="pulldown">

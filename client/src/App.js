@@ -9,7 +9,6 @@ import './App.css';
 
 export const LoginContext = React.createContext({});
 export const ResultContext = React.createContext();
-export const ResultListContext = React.createContext([]);
 
 export default function App () {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -41,10 +40,12 @@ export default function App () {
   }, []);
 
   const oauthLogin = (event) => {
-    window.open(`http://localhost:3002/auth/${event.target.id.slice(0, 6)}`, '_self');
+    window.open(`${process.env.REACT_APP_AUTH}${event.target.id.slice(0, 6)}`, '_self');
     setHovering(false);
     setLoginPage(false);
   }
+
+  console.log(resultList);
 
   function checkUser (user) {
     console.log('49', resultList);
@@ -71,12 +72,10 @@ export default function App () {
     <div className="App">
       <LoginContext.Provider value={userObj}>
       <ResultContext.Provider value={result}>
-        <ResultListContext.Provider value={resultList}>
         <Navbar isLoggedIn={isLoggedIn} setIsAsked={setIsAsked} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage} hovering={hovering} setHovering={setHovering} oauthLogin={oauthLogin} />
         {loginPage ? 
-          <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} setLoginPage={setLoginPage} oauthLogin={oauthLogin} setUserObj={setUserObj} setResultList={setResultList}/> : 
-          <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage} setResultList={setResultList}/>}
-      </ResultListContext.Provider>
+          <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} oauthLogin={oauthLogin} setUserObj={setUserObj} setResultList={setResultList}/> : 
+          <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage} setResultList={setResultList} resultList={resultList}/>}
       </ResultContext.Provider>
       </LoginContext.Provider>
     </div>

@@ -1,6 +1,6 @@
 const pg = require('pg');
 
-const connectString = 'postgres://localhost:5432/iching';
+const connectString = process.env.DATABASE;
 
 function getHistory (user) {
   const pgClient = new pg.Client(connectString);

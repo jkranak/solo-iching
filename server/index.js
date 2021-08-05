@@ -121,5 +121,5 @@ app.get('/auth/twiter/callback',
   })
 
   app.listen(PORT, () => {
-    console.log(`Server listening at localhost:${PORT}`)
+    console.log(`Server listening at port: ${PORT}`)
   });

@@ -27,22 +27,12 @@ exports.checkUser = async (req, res) => {
             const result = {};
             result.question = res.question;
             result.method = res.method;
-            let divinationArr = [];
-            res.divination.split(',').forEach(num => {
-              divinationArr.push(Number(num));
-            });
+            let divinationArr = res.divination.split(',')
             result.divination = divinationArr;
-            let numbersArr = [];
-            res.numbers.split(',').forEach(num => {
-              numbersArr.push(Number(num));
-            });
+            let numbersArr = res.numbers.split(',');
             result.numbers = numbersArr;
             let linesArr = [];
-            if (res.lines.length) {
-              res.lines.split(',').forEach(num => {
-                linesArr.push(Number(num));
-              });
-            }
+            if (res.lines.length) linesArr = res.lines.split(',');
             result.lines = linesArr;
             resultArr.push(result);
           }

@@ -22,7 +22,6 @@
     "react": "^17.0.2"
   },
   "devDependencies": {
-    "@types/passport": "^1.0.7",
-    "@types/passport-google-oauth20": "^2.0.9"
+    "nodemon": "^2.0.12"
   }
 }
