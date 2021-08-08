@@ -109,16 +109,16 @@ app.get('/auth/twiter/callback',
     res.send(req.user);
   })
 
-  app.get('/checkuser', (req, res) => {
-    res.send(req.user);
-  })
-
-  app.delete('/logout', (req, res) => {
-    req.session.destroy(function() {
-      res.clearCookie('connect.sid', { path: '/' });
+  app.get('/logout', function(req, res) {
+    req.session.destroy(function(err){
+      if(err){
+        console.log(err);
+      }else{
+        res.status(204);
+        res.redirect('/');
+      }
   });
-    return res.status(204);
-  })
+});
 
   app.listen(PORT, () => {
     console.log(`Server listening at port: ${PORT}`)

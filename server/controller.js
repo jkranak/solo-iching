@@ -13,16 +13,12 @@ exports.addResults = (req, res) => {
 
 exports.checkUser = async (req, res) => {
   try {
-    const userRes = await models.checkUser(req.body);
-    if (userRes.rowCount === 0) {
-      models.addUser(req.body);
-      res.send([]);
-      res.status(200);
-    } else {
+    const userRes = await models.checkUser(req.body.user);
+    if (userRes.rowCount > 0) {
       for (let el of userRes.rows) {
-        if (el.source === req.body.source) {
-          const allHistory = await models.getHistory(req.body);
-          const resultArr = [];
+        if (el.source === req.body.user.source) {
+          const allHistory = await models.getHistory(req.body.user);
+          const resultArr = [...req.body.history];
           for (let res of allHistory.rows) {
             const result = {};
             result.question = res.question;
@@ -36,11 +32,17 @@ exports.checkUser = async (req, res) => {
             result.lines = linesArr;
             resultArr.push(result);
           }
+          models.addResults(req.body.user.id, req.body.history);
           res.send(resultArr);
-          res.status(200);
+          res.status(200).end();
+          return;
         }
       }
     }
+    models.addUser(req.body.user);
+    models.addResults(req.body.user.id, req.body.history);
+    res.send(req.body.history);
+    res.status(200);
   } catch (err) {
     console.log(err);
     res.status(500);

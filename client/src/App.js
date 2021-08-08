@@ -1,6 +1,5 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import addHistory from './services/api';
 
 import Question from './components/question/question';
 import Navbar from './components/navbar/navbar';
@@ -27,46 +26,31 @@ export default function App () {
   const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
-    console.log(resultList);
     if (isLoggedIn === false) {
       axios.get(process.env.REACT_APP_GET_USER, { withCredentials: true}).then(res => {
         if (res.data) {
+          let history = JSON.parse(localStorage.getItem('history'));
+          localStorage.removeItem('history');
+          axios({
+            url: process.env.REACT_APP_CHECK_USER,
+            method: 'POST',
+            data: {user: res.data, history}
+          }).then(result => {
+            if (result.data.length > 0) {
+              setResultList([...result.data])
+            }
+          })
           setUserObj(res.data);
           setIsLoggedIn(true);
-          checkUser(res.data);
         };
       })
     }
-  }, []);
+  }, [resultList, isLoggedIn]);
 
   const oauthLogin = (event) => {
-    window.open(`${process.env.REACT_APP_AUTH}${event.target.id.slice(0, 6)}`, '_self');
-    setHovering(false);
-    setLoginPage(false);
+    localStorage.setItem('history', JSON.stringify(resultList));
+    window.open(`${process.env.REACT_APP_AUTH}/${event.target.id.slice(0, 6)}`, '_self');
   }
-
-  console.log(resultList);
-
-  function checkUser (user) {
-    console.log('49', resultList);
-    axios({
-      url: process.env.REACT_APP_CHECK_USER,
-      method: 'POST',
-      data: user
-    }).then(res => {
-      if (res.data.length === 0) {
-        console.log('resultList', resultList);
-        addHistory(user.id, resultList);
-      } else {
-        const fullHist = []
-        if (resultList.length) fullHist.push(...resultList);
-        fullHist.push(...res.data);
-        setResultList(fullHist)
-      }
-    })
-  }
-  
-
 
   return (
     <div className="App">
@@ -75,7 +59,7 @@ export default function App () {
         <Navbar isLoggedIn={isLoggedIn} setIsAsked={setIsAsked} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage} hovering={hovering} setHovering={setHovering} oauthLogin={oauthLogin} />
         {loginPage ? 
           <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} oauthLogin={oauthLogin} setUserObj={setUserObj} setResultList={setResultList}/> : 
-          <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage} setResultList={setResultList} resultList={resultList}/>}
+          <Question isAsked={isAsked} setIsAsked={setIsAsked} question={question} setQuestion={setQuestion} setResult={setResult} setLoginPage={setLoginPage} setResultList={setResultList} resultList={resultList} />}
       </ResultContext.Provider>
       </LoginContext.Provider>
     </div>

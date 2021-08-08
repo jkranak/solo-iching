@@ -8,12 +8,13 @@ import axios from 'axios';
 export default function Login ({ isLoggedIn, oauthLogin, setIsLoggedIn, setUserObj, setResultList }) {
   
   function logOut () {
-    axios.delete(process.env.REACT_APP_LOGOUT, {
+    axios.get(process.env.REACT_APP_LOGOUT, {
       withCredentials: true
     });
     setIsLoggedIn(false);
     setUserObj({});
     setResultList([]);
+    localStorage.removeItem('history');
   }
 
   return (
