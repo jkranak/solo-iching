@@ -1,5 +1,6 @@
 'use strict';
-const models = require('./models/index');
+
+const models = require('../models/index');
 
 exports.addResults = (req, res) => {
   try {
@@ -47,4 +48,8 @@ exports.checkUser = async (req, res) => {
     console.log(err);
     res.status(500);
   }
+}
+
+exports.getUser = (req, res) => {
+  res.send(req.user);
 }

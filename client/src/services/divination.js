@@ -1,10 +1,7 @@
 import hexNumber from '../data/hexnumber.json';
 
-function yarrowStalk () {
+function yarrowLine () {
   const remainders = num => num % 4 === 0 ? 4 : num % 4;
-
-  let results = [];
-  for (let i = 0; i < 6; i++) {
     let line = 0;
     let remain = 49;
     for (let i = 0; i < 3; i++) {
@@ -12,28 +9,29 @@ function yarrowStalk () {
       let sum = 1 + remainders(left) + remainders(remain - 1 - left);
       line += sum === 4 || sum === 5 ? 3 : 2;
       remain -= sum;
-    }
-    results.push(line.toString());
   }
-  return results;
+  return line;
 }
 
-function coinMethod () {
-  let results = [];
-  for (let i = 0; i < 6; i++){
+function coinLine () {
     let line = 0;
     for (let i = 0; i < 3; i++) {
       line += 2 + Math.floor(Math.random() * 2);
     }
-    results.push(line.toString());
+  return line;
+}
+
+function sixLines (method) {
+  let results = [];
+  for (let i = 0; i < 6; i++) {
+    if (method === 'coin') results.push(coinLine().toString());
+    else results.push(yarrowLine().toString());
   }
   return results;
 }
 
 export default function hexagram (method) {
-  let divination = [];
-  if (method === 'yarrow') divination = yarrowStalk();
-  else if (method === 'coin') divination = coinMethod();
+  let divination = sixLines(method);
   if (divination.includes('6') || divination.includes('9')) {
     let divination1 = '';
     let divinationChange = '';

@@ -9,6 +9,7 @@ import './App.css';
 export const LoginContext = React.createContext({});
 export const ResultContext = React.createContext();
 
+
 export default function App () {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState({});
@@ -27,31 +28,44 @@ export default function App () {
 
   useEffect(() => {
     if (isLoggedIn === false) {
+      let history = JSON.parse(localStorage.getItem('history'));
+      if (!history) history = [];
+      localStorage.removeItem('history');
+      if (history) {
+        let revHistory = history.reverse();
+        setResultList([...revHistory]);
+        setResult(revHistory[0]);
+        setIsAsked(true);
+      }
       axios.get(process.env.REACT_APP_GET_USER, { withCredentials: true}).then(res => {
         if (res.data) {
-          let history = JSON.parse(localStorage.getItem('history'));
-          localStorage.removeItem('history');
+          setUserObj(res.data);
+          setIsLoggedIn(true);
           axios({
             url: process.env.REACT_APP_CHECK_USER,
             method: 'POST',
             data: {user: res.data, history}
           }).then(result => {
             if (result.data.length > 0) {
-              setResultList([...result.data])
+              let revResults = result.data.reverse();
+              if (history.length === 0) {
+                setResult(revResults[0]);
+                setResultList([...history.reverse(), ...revResults])
+                setIsAsked(true);
+              } else {
+                setResultList([...revResults]);
+              }
             }
           })
-          setUserObj(res.data);
-          setIsLoggedIn(true);
         };
       })
     }
-  }, [resultList, isLoggedIn]);
-
+  }, [isLoggedIn]);
+  
   const oauthLogin = (event) => {
     localStorage.setItem('history', JSON.stringify(resultList));
     window.open(`${process.env.REACT_APP_AUTH}/${event.target.id.slice(0, 6)}`, '_self');
   }
-
   return (
     <div className="App">
       <LoginContext.Provider value={userObj}>

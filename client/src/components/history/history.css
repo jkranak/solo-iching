@@ -1,6 +1,8 @@
 #histtable {
   background-color: rgb(187, 180, 109);
   margin: 10px;
+  max-height: 150px;
+  overflow: scroll;
 }
 
 .hexes {
@@ -9,4 +11,15 @@
 
 #save {
   height: 45px;
+}
+
+#historydiv {
+  max-height: 211px;
+  overflow-y: auto;
+}
+
+#histheading {
+  transform: rotate(-90deg);
+  transform-origin: left top 0;
+  float: left;
 }

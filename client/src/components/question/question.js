@@ -31,7 +31,7 @@ export default function Question ({
     setResult(divResult);
     setIsAsked(true);
     if (login.id) addHistory(login.id, [divResult])
-    const allResults = [...resultList, divResult];
+    const allResults = [divResult, ...resultList];
     setResultList(allResults);
   }
 
@@ -42,7 +42,7 @@ export default function Question ({
 
   return (
     <div id="container">
-      {!isAsked ?  
+      {!isAsked || !result ?  
       <>
         <div id="logo"><h1>The I Ching</h1>
           <h2>&#x2630; &#x2631; &#x2632; &#x2633; &#x2634; &#x2635; &#x2636; &#x2637;</h2>

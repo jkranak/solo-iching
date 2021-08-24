@@ -10,11 +10,14 @@ export default function Login ({ isLoggedIn, oauthLogin, setIsLoggedIn, setUserO
   function logOut () {
     axios.get(process.env.REACT_APP_LOGOUT, {
       withCredentials: true
+    }).then(res => {
+      if (res.data === 'done') {
+        setIsLoggedIn(false);
+        setUserObj({});
+        setResultList([]);
+      }
     });
-    setIsLoggedIn(false);
-    setUserObj({});
-    setResultList([]);
-    localStorage.removeItem('history');
+
   }
 
   return (

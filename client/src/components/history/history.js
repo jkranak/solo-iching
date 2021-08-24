@@ -13,8 +13,9 @@ export default function History({ setLoginPage, resultList }) {
 
   return (
     <>
+    <h3 id="histheading">History</h3>
+    <div id="historydiv">
       {result.method !== 'lookup' && <div>
-      <h3>Your history</h3>
       <table id="histtable">
         <thead>
           <tr>
@@ -39,8 +40,9 @@ export default function History({ setLoginPage, resultList }) {
           </tr>))}
         </tbody>
       </table>
-      {!login.id && <button id="save" onClick={loginClick}>Log in to save your history</button>}
       </div>}
+    </div>
+    {!login.id && <button id="save" onClick={loginClick}>Log in to save your history</button>}
     </>
   );
 }

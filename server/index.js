@@ -4,20 +4,28 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const router = require('./router')
+const router = require('./router');
 
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+const store = new pgSession();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const GitHubStrategy = require('passport-github2');
+const models = require('./models/index');
 
 const PORT = process.env.PORT || 3002;
 
 app.use(session({
+  store: store,
   secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 10 * 24 * 60 * 60 * 1000 },
+  conString: process.env.DATABASE,
+  sameSite: true,
+  // secure: true - requires https
 }))
 
 app.use(passport.initialize());
@@ -26,13 +34,16 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true}));
 app.use(router);
 
-passport.serializeUser((user, done) => {
-  return done(null, user);
-});
+// passport.serializeUser((user, done) => {
+//   return done(null, user.id);
+// });
 
-passport.deserializeUser((user, done) => {
-  return done(null, user);
-})
+// passport.deserializeUser((id, done) => {
+//   models.checkUser(id, (err, userObj) => {
+//     if (err) console.log(err)
+//     else return done(null, userObj)
+//   })
+// })
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_ID,
@@ -81,11 +92,11 @@ app.get('/auth/twiter/callback',
     res.redirect(process.env.CLIENT_URL);
   });
 
-  passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_ID,
-    clientSecret: process.env.GITHUB_SECRET,
-    callbackURL: "/auth/github/callback"
-  },
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_ID,
+  clientSecret: process.env.GITHUB_SECRET,
+  callbackURL: "/auth/github/callback"
+},
   function(accessToken, refreshToken, profile, cb) {
     const userObj = {
       id: profile.id,
@@ -94,32 +105,28 @@ app.get('/auth/twiter/callback',
     }
     cb(null, userObj);
   }
-  ));
+));
 
-  app.get('/auth/github',
-  passport.authenticate('github', { scope: [ 'user:email' ] }));
+app.get('/auth/github',
+passport.authenticate('github', { scope: [ 'user:email' ] }));
 
-  app.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: process.env.CLIENT_URL }),
-  function(req, res) {
-    res.redirect(process.env.CLIENT_URL);
-  });
-
-  app.get('/getuser', (req, res) => {
-    res.send(req.user);
-  })
-
-  app.get('/logout', function(req, res) {
-    req.session.destroy(function(err){
-      if(err){
-        console.log(err);
-      }else{
-        res.status(204);
-        res.redirect('/');
-      }
-  });
+app.get('/auth/github/callback', 
+passport.authenticate('github', { failureRedirect: process.env.CLIENT_URL }),
+function(req, res) {
+  res.redirect(process.env.CLIENT_URL);
 });
 
-  app.listen(PORT, () => {
-    console.log(`Server listening at port: ${PORT}`)
-  });
+app.get('/getuser', (req, res) => {
+  res.send(req.user);
+})
+
+app.get('/auth/logout', function(req, res) {
+  if (req.user) {
+    req.logout();
+    res.send('done');
+  };
+})
+
+app.listen(PORT, () => {
+  console.log(`Server listening at port: ${PORT}`)
+});
